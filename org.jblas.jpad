@@ -1,9 +1,9 @@
 import org.jblas.*;
 import static org.jblas.DoubleMatrix.*;
 import static org.jblas.MatrixFunctions.*;
+import io.jpad.Processor;
 
-
-ResultSetAdapter.registerPreProcessor(new io.jpad.resultset.Processor() {
+JPad.registerPreProcessor(new Processor() {
 	public Object process(Object o, int depth) {
 		if(o instanceof DoubleMatrix) {
 			DoubleMatrix m = (DoubleMatrix) o;
