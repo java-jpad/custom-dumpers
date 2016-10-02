@@ -1,0 +1,19 @@
+import org.jblas.*;
+import static org.jblas.DoubleMatrix.*;
+import static org.jblas.MatrixFunctions.*;
+
+
+ResultSetAdapter.registerPreProcessor(new io.jpad.resultset.Processor() {
+	public Object process(Object o, int depth) {
+		if(o instanceof DoubleMatrix) {
+			DoubleMatrix m = (DoubleMatrix) o;
+			ObjectAsResultSet rs = new ObjectAsResultSet(m.columns, m.rows) {
+				public Object get(int col, int row) { return m.get(row, col); }
+				public int getColumnType(int column) { return java.sql.Types.DOUBLE; }
+				public String getColumnName(int column) { return "" + column; }
+			};
+			return rs;
+		}
+		return null;
+	}
+});
